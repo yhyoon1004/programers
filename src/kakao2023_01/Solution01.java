@@ -8,7 +8,7 @@ import java.util.*;
 //실패
 public class Solution01 {
     public static void main(String[] args) throws ParseException {
-        Solution a = new Solution();
+        Solution_02 a = new Solution_02();
         String today = "2022.05.19";
         String[] terms = {"A 6", "B 12", "C 3"};
 
