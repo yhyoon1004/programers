@@ -6,6 +6,7 @@ import java.util.*;
 
 //SimpleDateFormat 과 java.util.date을 이용한 풀이
 //실패
+//todo 날짜값 수정하면 해결할 수 있을 듯 조건 28일이라 명시된걸 못봄
 public class Solution01 {
     public static void main(String[] args) throws ParseException {
         Solution_02 a = new Solution_02();
