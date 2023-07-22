@@ -1,8 +1,12 @@
+package kakao2023_01;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class kakao2023_01 {
+//SimpleDateFormat 과 java.util.date을 이용한 풀이
+//실패
+public class Solution01 {
     public static void main(String[] args) throws ParseException {
         Solution a = new Solution();
         String today = "2022.05.19";
@@ -17,14 +21,9 @@ public class kakao2023_01 {
         System.out.println("________________");
     }
 
-
 }
 
 class Solution {
-//    String today = "2022.05.19";
-//    String[] terms = {"A 6", "B 12", "C 3"};
-//    String[] privacies = {"2021.05.02 A", "2021.07.01 B", "2022.02.19 C", "2022.02.20 C"};
-
     public int[] solution(String today, String[] terms, String[] privacies) throws ParseException {
         List<Integer> result = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
@@ -36,21 +35,19 @@ class Solution {
             termMap.put(term_value[0], Integer.parseInt(term_value[1]));
         }
 
-        int count =0;
+        int count = 0;
         for (String privacy : privacies) {
             count++;
             String[] privacy_value = privacy.split("\\s");
 
             Date parsedPrivacy_date = sdf.parse(privacy_value[0]);
 
-           Long privacyTime =  (termMap.get(privacy_value[1])*2592000000L) + parsedPrivacy_date.getTime();
+            Long privacyTime = (termMap.get(privacy_value[1]) * 2592000000L) + parsedPrivacy_date.getTime();
             if (today_date.getTime() > privacyTime) {
                 result.add(count);
             }
         }
 
-        return result.stream().mapToInt(i->i).toArray();
+        return result.stream().mapToInt(i -> i).toArray();
     }
 }
-
-
