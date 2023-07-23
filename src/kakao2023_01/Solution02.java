@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Solution02 {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         Solution_02 a = new Solution_02();
         String today = "2022.05.19";
         String[] terms = {"A 6", "B 12", "C 3"};
@@ -36,7 +36,7 @@ class Solution_02 {
         }
 
 //        privacies 계산 처리
-        for (int j = 0; j<privacies.length; j++) {
+        for (int j = 0; j < privacies.length; j++) {
 
             //현재 날짜 int[]형 변환
             int[] today_split_integer = new int[3];
@@ -53,25 +53,33 @@ class Solution_02 {
                 privacy_split_Date_integer[i] = Integer.parseInt(privacy_Date[i]);
             }
 
+            System.out.println("_____input validation [" + j + "]_____\n" +
+                    "today : " + today_split_integer[0] + " 년 " + today_split_integer[1] + " 월 " + today_split_integer[2] + " 일 ");
+            System.out.print("약관 동의 일자 : " + privacy_split_Date_integer[0] + " 년 " + privacy_split_Date_integer[1] + " 월 " + privacy_split_Date_integer[2] + " 일 \n");
+            System.out.println("약관 종류/기간 :" + privacy_pair[1] + " / " + terms_map.get(privacy_pair[1]));
+
             //약관 동의 일자 만료일 계산
-            int expireMonth = privacy_split_Date_integer[1] + terms_map.get(privacy_pair[1]);
-            if (expireMonth > 12) {
-                privacy_split_Date_integer[0] += expireMonth / 12;
-                privacy_split_Date_integer[1] = expireMonth % 12;
-            }
+            int sumMonth = privacy_split_Date_integer[1] + terms_map.get(privacy_pair[1]);
 
-            if (privacy_split_Date_integer[0] > today_split_integer[0]) {
-                continue;
-            } else if (privacy_split_Date_integer[0] == today_split_integer[0]
-                    && privacy_split_Date_integer[1] > today_split_integer[1]) {
-                continue;
-            } else if (privacy_split_Date_integer[1] == today_split_integer[1]
-                    && privacy_split_Date_integer[2] > today_split_integer[2]) {
-                continue;
+            //약관동의일자 만료월이 12월인 경우
+            if (sumMonth == 12) {
+                privacy_split_Date_integer[1] = sumMonth;
+            }
+            else if(sumMonth>12) { //만료월이 12월 보다 클경우
+                //만료년도는 12를 나눠준 (1년) 몫 만큼 증가
+                privacy_split_Date_integer[0] += sumMonth / 12;
+                privacy_split_Date_integer[1] = sumMonth % 12;//나눠준 나머지 값을 월로 설정
             }else {
-                result.add(j+1);
+                privacy_split_Date_integer[1] = sumMonth;
             }
+            System.out.print("만료 일자 : " + privacy_split_Date_integer[0] + " 년 " + privacy_split_Date_integer[1] + " 월 " + privacy_split_Date_integer[2] + " 일");
 
+            System.out.println("\n\n");
+//            if (today_split_integer[0]>privacy_split_Date_integer[0]){
+//                continue;
+//            } else if () {
+//
+//            }
 
         }//end of for(String privacy : privacies)
 
