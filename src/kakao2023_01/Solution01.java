@@ -9,7 +9,7 @@ import java.util.*;
 //todo 날짜값 수정하면 해결할 수 있을 듯 조건 28일이라 명시된걸 못봄
 public class Solution01 {
     public static void main(String[] args) throws ParseException {
-        Solution_02 a = new Solution_02();
+        Solution a = new Solution();
         String today = "2022.05.19";
         String[] terms = {"A 6", "B 12", "C 3"};
 
@@ -31,23 +31,34 @@ class Solution {
         Date today_date = sdf.parse(today);
         Map<String, Integer> termMap = new HashMap<>();
 
+        //문자열 배열로 받은 정책의 기간을 Map으로 변환 key=정책명 / value=기간(달)
         for (String term : terms) {
             String[] term_value = term.split("\\s");
             termMap.put(term_value[0], Integer.parseInt(term_value[1]));
         }
 
+        //약관동의일자 목록을 순회하며 만료일자를 현재와 비교
         int count = 0;
         for (String privacy : privacies) {
             count++;
             String[] privacy_value = privacy.split("\\s");
 
             Date parsedPrivacy_date = sdf.parse(privacy_value[0]);
+            // 60 = 1m // 60m = 1h // 24h = 1d // 28d = 1M
+            // 60 * 60 * 24 * 28 = 2,419,200
+            Long expiredTime = (termMap.get(privacy_value[1]) * 2419200000L) + parsedPrivacy_date.getTime();
+            System.out.println("----인덱스 [ " + count + " ] ----");
+            System.out.println("termMap.get(privacy_value[1]) = " + termMap.get(privacy_value[1]) + "\n(termMap.get(privacy_value[1]) * 2419200000L) = " + (termMap.get(privacy_value[1]) * 2419200L));
+            System.out.println("약관 동의일 " + parsedPrivacy_date.getTime()+"|"+sdf.format(new Date(parsedPrivacy_date.getTime())));
+            System.out.println("오늘   " + today_date.getTime()+"|"+sdf.format(new Date(today_date.getTime())));
+            System.out.println("만료일 " + expiredTime +"|"+sdf.format(new Date(expiredTime)));
+            System.out.println("------------------");
 
-            Long privacyTime = (termMap.get(privacy_value[1]) * 2592000000L) + parsedPrivacy_date.getTime();
-            if (today_date.getTime() > privacyTime) {
+            if (today_date.getTime() > expiredTime) {
+                System.out.println("추가된 인덱스 = " + count);
                 result.add(count);
             }
-        }
+        }//end of for
 
         return result.stream().mapToInt(i -> i).toArray();
     }
