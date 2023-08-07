@@ -9,7 +9,7 @@ import java.util.*;
 //todo 날짜값 수정하면 해결할 수 있을 듯 조건 28일이라 명시된걸 못봄
 public class Solution01 {
     public static void main(String[] args) throws ParseException {
-        Solution a = new Solution();
+        Solve01 a = new Solve01();
         String today = "2022.05.19";
         String[] terms = {"A 6", "B 12", "C 3"};
 
@@ -24,7 +24,7 @@ public class Solution01 {
 
 }
 
-class Solution {
+class Solve01 {
     public int[] solution(String today, String[] terms, String[] privacies) throws ParseException {
         List<Integer> result = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");

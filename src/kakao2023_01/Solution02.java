@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Solution02 {
     public static void main(String[] args) {
-        Solution_02 a = new Solution_02();
+        Solve02 a = new Solve02();
         String today = "2022.05.19";
         String[] terms = {"A 6", "B 12", "C 3"};
 
@@ -22,7 +22,7 @@ public class Solution02 {
     }
 }
 
-class Solution_02 {
+class Solve02 {
     public int[] solution(String today, String[] terms, String[] privacies) {
         List<Integer> result = new ArrayList<>();
 
